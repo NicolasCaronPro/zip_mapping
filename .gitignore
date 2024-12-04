@@ -11,6 +11,11 @@ mlartifacts/
 # C extensions
 *.so
 
+*.dbf
+*.prj
+*.shp
+*.shx
+
 # File
 *.pkl
 *.csv
