@@ -1,6 +1,6 @@
 from database import *
 from torch import optim
-import tqdm
+from tqdm import tqdm
 
 def launch_train_loader(model, loader,
                   criterion, optimizer):
@@ -141,7 +141,7 @@ def plot_train_val_loss(epochs, train_loss_list, val_loss_list, dir_output):
 
 def wrapped_train(model, train_loader, val_loader, params):
     lr = params['lr']
-    epoch = params['epoch']
+    epoch = params['epochs']
     PATIENCE_CNT = params['PATIENCE_CNT']
     CHECKPOINT = params['CHECKPOINT']
     epochs = params['epochs']

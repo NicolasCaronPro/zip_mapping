@@ -85,7 +85,7 @@ def rasterisation(h3, lats, longs, column='cluster', defval = 0, name='default',
     else:
         pixel_size_x = abs(longs[0][0] - longs[0][1])
         pixel_size_y = abs(lats[0][0] - lats[1][0])
-    print(f'px {pixel_size_x}, py {pixel_size_y}')
+    
     #pixel_size_x = res[dim][0]
     #pixel_size_y = res[dim][1]
 
@@ -117,7 +117,7 @@ def rasterisation(h3, lats, longs, column='cluster', defval = 0, name='default',
 
     res, _, _ = read_tif(dir_output + '/' + name+'.tif')
     os.remove(dir_output + '/' + name+'.tif')
-    return res
+    return res[0]
 
 def get_existing_run(run_name):
     # Récupère tous les runs avec le nom spécifié
@@ -141,3 +141,20 @@ def resize_no_dim(input_image, height, width):
     img = transform.resize(img, (height, width), mode='constant', order=0,
                  preserve_range=True, anti_aliasing=True)
     return np.asarray(img)
+
+def remove_accents(input_str):
+    """
+    Retire tous les accents d'une chaîne de caractères.
+
+    Parameters:
+    - input_str (str): La chaîne de caractères d'entrée.
+
+    Returns:
+    - str: La chaîne de caractères sans accents.
+    """
+    import unicodedata
+    # Décompose les caractères accentués en caractères de base + marques d'accent
+    nfkd_form = unicodedata.normalize('NFKD', input_str)
+
+    # Filtre uniquement les caractères de base (catégorie 'Mn' = Nonspacing Mark)
+    return ''.join(c for c in nfkd_form if not unicodedata.combining(c))

@@ -92,6 +92,9 @@ class UNet(torch.nn.Module):
     def forward(self, x):
         if len(x.shape) == 5:
             x = x[:, :, :, :, -1]
+
+        print(x.shape)
+        x = torch.permute(x, (0, 2, 3, 1))
             
         x = self.inc(x)
         skip_connections = [x]
